@@ -2,7 +2,7 @@ class Scan < ActiveRecord::Base
   serialize :data
   belongs_to :request
   def self.create_by_file file
-    file = "tmp/todo/DOC0002.tif"
+    
     xml = IO.popen("zbarimg --xml #{file}").read
 
     data= nil
@@ -54,15 +54,15 @@ class Scan < ActiveRecord::Base
         request= nil
       end
 
-    #rescue
-    #  xml = "<error>Unable to parse scan!</error>"
+    rescue
+      note = "Parsing error!"
     end
 
     scan = self.create data: data, request_number: request_number, barcode: xml, note: note, request: request
 
     FileUtils.copy(file, "public/Files/"+(1000000+scan.id).to_s+'.'+file.split('.').last)
     scan.file= (1000000+scan.id).to_s+'.'+file.split('.').last
-    IO.popen("convert public/Files/#{scan.file} public/Files/"+(1000000+scan.id).to_s+'.png')
+    IO.popen("convert -quality 10 -thumbnail 200 public/Files/#{scan.file} public/Files/"+(1000000+scan.id).to_s+'.png')
     scan.save
     return scan
 

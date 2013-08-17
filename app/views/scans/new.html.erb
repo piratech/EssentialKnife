@@ -1,5 +1,11 @@
-<h1>New scan</h1>
+<h1>Upload scan</h1>
+<blockquote>
+	<p>
+		Der Scanner kann auch direkt auf den Server scanne...
+	</p>
+</blockquote>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', scans_path %>
+<%= form_tag({action: :create}, multipart: true) do %>
+	<input type="file" name="upload[]" multiple>
+	<input type="submit" value="Upload starten" />
+<% end %>
