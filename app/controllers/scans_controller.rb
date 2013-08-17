@@ -1,5 +1,6 @@
 class ScansController < ApplicationController
   before_action :set_scan, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token, only: :xerox
   # GET /scans
   # GET /scans.json
   def index
@@ -24,11 +25,52 @@ class ScansController < ApplicationController
   # POST /scans.json
   def create
     params[:upload].each do | upload |
-      file = File.join("tmp/", (0...8).map{(65+rand(26)).chr}.join+"-"+upload.original_filename)
+      file = File.join("tmp/", (0...10).map{(65+rand(26)).chr}.join+"-"+upload.original_filename)
       FileUtils.mv upload.tempfile.path, file
       Scan.create_by_file file
     end
     redirect_to scans_url
+  end
+
+  def xerox
+    isLock = false
+    if !params[:destName].nil? then
+      isLock = true if params[:destName].include? '.LCK'
+    end
+    if !params[:destDir].nil? then
+      isLock = true if params[:destDir].include? '.LCK'
+    end
+
+    if "PutFile" == params[:theOperation] then
+      if isLock or params[:destName].include? '.XST' then
+        render text: ""
+      else
+        file = File.join("tmp/", (0...10).map{(65+rand(26)).chr}.join+"-"+params[:destName])
+        FileUtils.mv params[:sendfile].tempfile.path, file
+        Scan.create_by_file file
+      end
+    end
+
+    if ["DeleteFile","MakeDir","RemoveDir"].include? params[:theOperation] then
+      if isLock then
+        render text: ""
+      else
+        render text: "XRXERROR"
+      end
+    end
+    if "GetFile" == params[:theOperation] then
+      if isLock then
+        render text: "XRXNOTFOUND"
+      else
+        render text: ""
+      end
+    end
+    if "DeleteDirContents" == params[:theOperation] then
+      render text: "XRXERROR"
+    end
+    if "ListDir" == params[:theOperation] then
+      render text: ""
+    end
   end
 
   # PATCH/PUT /scans/1

@@ -1,5 +1,6 @@
 EssentialKnife::Application.routes.draw do
   root 'requests#index'
+  post "xerox" => "scans#xerox"
 
   resources :requests
 
