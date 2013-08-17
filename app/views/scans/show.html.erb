@@ -1,0 +1,38 @@
+<p id="notice">
+	<%= notice %>
+</p>
+
+<div style="width: 230; float: right;">
+	<a href="/Files/<%= @scan.file%>"> <img src="/Files/<%= @scan.file.split('.').first%>.png" alt="Scan"/> </a>
+</div>
+<div style="float: laft;">
+	<p>
+		<% if @scan.request then %>
+		<strong>Request</strong>
+		<%= link_to @scan.request_number, @scan.request, class: "btn" %>
+		<% else %>
+		<h2>Fehler</h2>
+		Der zugehörige vergang konnte nicht gefunden werden. Ggf. ist der Tracking-Aufkleber vergessen worden oder ist nicht erkannt worden.
+		<% end %>
+	</p>
+
+	<p>
+		<strong>Note:</strong>
+		<%= @scan.note %>
+	</p>
+
+	<p>
+		<strong>Deleted:</strong>
+		<%= @scan.deleted %>
+	</p>
+
+	<%= link_to 'Edit', edit_scan_path(@scan), class: "btn" %>
+	<%= link_to 'Back', scans_path, class: "btn" %>
+	<%= link_to 'Destroy', @scan, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-danger" %>
+</div>
+<div style="clear: both; padding: 5px;">
+	<p>
+		<strong>QR-Daten:</strong>
+		<%= debug @scan.data %>
+	</p>
+</div>

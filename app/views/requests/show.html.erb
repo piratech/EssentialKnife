@@ -1,0 +1,62 @@
+<div style="float: right; padding-right: 10px;">
+
+	<% if @request.scan.where(deleted: false).count < 1 then %>
+	<h2>Achtung: Keine Scans vorhanden!</h2>
+	<% else %>
+
+	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+		<% if @request.scan.where(deleted: false).count > 1 then %>
+		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
+		<li  <%= "class='active'".html_safe if i == 0 %>>
+			<a href="#sc<%= i%>" data-toggle="tab"> <%= if s.data then "<b>#{i}</b>".html_safe else i end %> </a>
+		</li>
+		<% end %>
+		<% end %>
+	</ul>
+	<div id="my-tab-content" class="tab-content">
+		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
+
+		<div class="tab-pane <%= "active" if i == 0 %>" id="sc<%= i%>">
+			<a href="<%= url_for s %>"> <img src="/Files/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 200"/> </a>
+		</div>
+		<% end %>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function($) {
+			$('#tabs').tab();
+		});
+	</script>
+
+	<% end %>
+</div>
+
+<div>
+
+	<p id="notice">
+		<%= notice %>
+	</p>
+
+	<p>
+		<strong>Request number:</strong>
+		<%= @request.request_number %>
+	</p>
+
+	<p>
+		<strong>Note:</strong>
+		<%= @request.note %>
+	</p>
+
+	<p>
+		<strong>Has data:</strong>
+		<%= @request.has_data %>
+	</p>
+
+	<p>
+		<strong>State:</strong>
+		<%= @request.state %>
+	</p>
+
+	<%= link_to 'Edit', edit_request_path(@request) %> |
+	<%= link_to 'Back', requests_path %>
+</div>

@@ -1,0 +1,3 @@
+== README
+
+Kleines Tool um mit der Papierflut von Stop-BDA zurecht zu kommen

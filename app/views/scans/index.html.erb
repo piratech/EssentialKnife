@@ -1,0 +1,31 @@
+<h1>Listing scans</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Request</th>
+      <th>Note</th>
+      <th>Deleted</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scans.each do |scan| %>
+      <tr onclick="location='<%= url_for scan%>'">
+        <td><%= link_to scan.request_number, scan.request %></td>
+        <td><%= scan.note %></td>
+        <td><%= scan.deleted %></td>
+        <td><%= link_to 'Show', scan %></td>
+        <td><%= link_to 'Edit', edit_scan_path(scan) %></td>
+        <td><%= link_to 'Destroy', scan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Scan', new_scan_path %>

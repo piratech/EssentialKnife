@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>EssentialKnife</title>
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body style="padding-top: 60px;">
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+					<a class="brand" href="/">Essential Knife</a>
+
+					<p class="navbar-text pull-right" id="menu-state" style="color: red; text-decoration: blink;">
+						<noscript>
+							Javascript wird benötigt!
+						</noscript>
+					</p>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<%[
+							{:text => "Requests", :controller => "requests", :action => "index"},
+							{:text => "Scans", :controller => "scans", :action => "index"},
+							].each { |e| %>
+							<li<%= ' class="active"'.html_safe if controller.controller_name == e[:controller] and (controller.action_name == e[:action] or controller.controller_name != "home") %>>
+								<%= link_to e[:text], :controller => e[:controller], :action => e[:action] %></li>
+								<% }
+								%>
+
+						</ul>
+					</div>
+					<div class="nav-collapse collapse pull-right">
+						<ul class="nav">
+							<li class="dropdown">
+								<%= @menu_archiv_link %>
+							</li>
+							<li class="dropdown">
+								<%= @menu_cmd_link %>
+							</li>
+							<li>
+								<%= @menu_edit_link%>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+
+		<%= yield %>
+
+	</body>
+</html>

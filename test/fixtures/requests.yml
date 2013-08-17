@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  request_number: MyText
+  note: MyText
+  has_data: false
+  state: MyText
+
+two:
+  request_number: MyText
+  note: MyText
+  has_data: false
+  state: MyText
