@@ -4,7 +4,11 @@ class ScansController < ApplicationController
   # GET /scans
   # GET /scans.json
   def index
-    @scans = Scan.all
+    ddep = {}
+    rdep = {}
+    ddep[:deleted] = false if !params[:deleted]
+    rdep[:request_number] = nil if !params[:request_number]
+    @scans = Scan.all.where(ddep).where(rdep)
   end
 
   # GET /scans/1
