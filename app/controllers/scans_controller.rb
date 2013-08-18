@@ -1,5 +1,5 @@
 class ScansController < ApplicationController
-  before_action :set_scan, only: [:show, :edit, :update, :destroy]
+  before_action :set_scan, only: [:show, :edit, :update, :destroy, :ean]
   skip_before_filter :verify_authenticity_token, only: :xerox
   # GET /scans
   # GET /scans.json
@@ -23,6 +23,14 @@ class ScansController < ApplicationController
 
   # GET /scans/1/edit
   def edit
+  end
+  
+  def ean
+    if @scan.update_request_number params[:ean] then
+      render text: "OK"
+    else
+      render text: "Das ist kein valider Code!" 
+    end
   end
 
   # POST /scans

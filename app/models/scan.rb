@@ -1,8 +1,24 @@
 class Scan < ActiveRecord::Base
   serialize :data
   belongs_to :request
+  def update_request_number code
+    return false if !EAN8.valid? code
+    self.request= Request.find_or_create_by(request_number: code)
+    self.request_number= code
+    if self.data then
+      if !request.has_data then
+        request.read_data data
+      else
+        request.state = 'Problem'
+        request.note  = "Mehere QR-Codes gefunden"
+      end
+      request.save
+    end
+    self.save
+    return true
+  end
+
   def self.create_by_file file
-    
     xml = IO.popen("zbarimg --xml #{file}").read
 
     data= nil
@@ -27,7 +43,7 @@ class Scan < ActiveRecord::Base
         if code["type"] == "EAN-8" then
           if request_number.nil? then
             request_number= code["data"]
-            request_number = false if !EAN8.valid? request_number 
+            request_number = false if !EAN8.valid? request_number
           else
             request_number= false
             note+= "\zuviele Track-Codes gefunden!"

@@ -4,6 +4,7 @@ EssentialKnife::Application.routes.draw do
 
   resources :requests
 
+  post "/scans/:id" => "scans#ean"
   resources :scans
 
 # The priority is based upon order of creation: first created -> highest priority.

@@ -12,7 +12,8 @@
 		<%= link_to @scan.request_number, @scan.request, class: "btn" %>
 		<% else %>
 		<h2>Fehler</h2>
-		Der zugehörige vergang konnte nicht gefunden werden. Ggf. ist der Tracking-Aufkleber vergessen worden oder ist nicht erkannt worden.
+		Der zugehörige Vorrgang konnte nicht gefunden werden. Ggf. ist der Tracking-Aufkleber vergessen worden oder ist nicht erkannt worden.
+		<script> handle_no_ean("<%= url_for @scan %>");</script>
 		<% end %>
 	</p>
 

@@ -12,7 +12,10 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-					<a class="brand" href="/">Essential Knife</a>
+					<a class="brand" href="/"><img src="/logo.png" />Essential Knife</a>
+					<form class="navbar-search pull-right" onsubmit="return false;" id="input_form">
+						<input type="text" class="search-query span2" id="input" style="display: none;">
+					</form>
 
 					<p class="navbar-text pull-right" id="menu-state" style="color: red; text-decoration: blink;">
 						<noscript>
@@ -48,8 +51,6 @@
 				</div>
 			</div>
 		</div>
-
-		
 
 		<%= yield %>
 
