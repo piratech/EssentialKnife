@@ -1,6 +1,16 @@
-<h1>Listing requests</h1>
-
-<table class="table table-hover">
+<div style="float: left;">
+	<h1>Requests</h1>
+</div>
+<div style="float: left; padding-top: 20px; padding-left: 50px;">
+	<form class="pull-left">
+		<select name="state" onchange="this.form.submit();">
+			<% Request.group(:state).each do |r| %>
+				<option <%="selected" if r.state == params[:state] %>><%=r.state%></option>
+			<% end %>
+		</select>
+	</form>
+</div>
+<table class="table table-hover" style="clear: both;">
   <thead>
     <tr>
       <th>Request number</th>
@@ -27,7 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Request', new_request_path %>
