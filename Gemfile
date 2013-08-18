@@ -44,6 +44,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'passenger'
+
 gem "therubyracer"
 gem 'less-rails-bootstrap'
 gem 'bootstrap-sass'
