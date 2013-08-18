@@ -17,7 +17,8 @@
 		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
 
 		<div class="tab-pane <%= "active" if i == 0 %>" id="sc<%= i%>">
-			<a href="<%= url_for s %>"> <img src="/Files/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 200"/> </a>
+			<a href="/Files/<%= s.file%>"> <img src="/Files/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 200"/> </a> <br />
+			<a href="<%= url_for s %>"> Details </a>
 		</div>
 		<% end %>
 	</div>
