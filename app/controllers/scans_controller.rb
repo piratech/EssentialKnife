@@ -24,12 +24,12 @@ class ScansController < ApplicationController
   # GET /scans/1/edit
   def edit
   end
-  
+
   def ean
     if @scan.update_request_number params[:ean] then
       render text: "OK"
     else
-      render text: "Das ist kein valider Code!" 
+      render text: "Das ist kein valider Code!"
     end
   end
 
@@ -45,6 +45,9 @@ class ScansController < ApplicationController
   end
 
   def xerox
+
+    state= "XRXERROR"
+
     isLock = false
     if !params[:destName].nil? then
       isLock = true if params[:destName].include? '.LCK'
@@ -54,35 +57,34 @@ class ScansController < ApplicationController
     end
 
     if "PutFile" == params[:theOperation] then
-      if isLock or params[:destName].include? '.XST' then
-        render text: ""
+      if !params[:destName].include? '.TIF' then
+        state = ""
       else
-        file = File.join("tmp/", (0...10).map{(65+rand(26)).chr}.join+"-"+params[:destName])
+        file = File.join("tmp/", (0...10).map{(65+rand(26)).chr}.join+".tif")
         FileUtils.mv params[:sendfile].tempfile.path, file
         Scan.create_by_file file
+        state = ""
       end
     end
 
     if ["DeleteFile","MakeDir","RemoveDir"].include? params[:theOperation] then
-      if isLock then
-        render text: ""
-      else
-        render text: "XRXERROR"
-      end
+      state = ""
     end
     if "GetFile" == params[:theOperation] then
       if isLock then
-        render text: "XRXNOTFOUND"
+        state =  "XRXNOTFOUND"
       else
-        render text: ""
+        state =  ""
       end
     end
     if "DeleteDirContents" == params[:theOperation] then
-      render text: "XRXERROR"
+      state =  "XRXERROR"
     end
     if "ListDir" == params[:theOperation] then
-      render text: ""
+      state =  ""
     end
+    render text: state
+
   end
 
   # PATCH/PUT /scans/1

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20130817130326) do
   create_table "requests", force: true do |t|
     t.text     "request_number"
     t.text     "note"
-    t.boolean  "has_data"
+    t.boolean  "has_data",       default: false
     t.text     "state"
     t.datetime "created_at"
     t.datetime "updated_at"
