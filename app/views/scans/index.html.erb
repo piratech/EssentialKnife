@@ -30,6 +30,7 @@
 			<td><%= link_to scan.request_number, scan.request if !scan.request_number.nil? %></td>
 			<td><%= scan.note %></td>
 			<td>
+				<%= "DATA" if !scan.data.nil?%>
 				<%= "Gelöscht" if scan.deleted %>
 				<%= "Ohne Track-Code" if scan.request_number.nil?%>
 			</td>
