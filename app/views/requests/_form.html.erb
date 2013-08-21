@@ -1,38 +1,72 @@
-<%= form_for(@request) do |f| %>
-<% if @request.errors.any? %>
-<div id="error_explanation">
-	<h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+<div style="float: right; width: 50%">
 
-	<ul>
-		<% @request.errors.full_messages.each do |msg| %>
-		<li>
-			<%= msg %>
+	<% if @request.scan.where(deleted: false).count < 1 then %>
+	<h2>Achtung: Keine Scans vorhanden!</h2>
+	<% else %>
+
+	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+		<% if @request.scan.where(deleted: false).count > 1 then %>
+		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
+		<li  <%= "class='active'".html_safe if i == 0 %>>
+			<a href="#sc<%= i%>" data-toggle="tab"> <%= if s.data then "<b>#{i}</b>".html_safe else i end %> </a>
 		</li>
 		<% end %>
+		<% end %>
 	</ul>
-</div>
-<% end %>
+	<div id="my-tab-content" class="tab-content">
+		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
 
-<dl class="dl-horizontal">
-	<dt>Request Number</dt>
-	<dd><%= f.text_field :request_number %></dd>
+		<div class="tab-pane <%= "active" if i == 0 %>" id="sc<%= i%>">
+			<a href="/Files/<%= s.file%>"> <img src="/Files/thumbnail/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 100%"/> </a> <br />
+			<a href="<%= url_for s %>"> Details </a>
+		</div>
+		<% end %>
+	</div>
 
-	<dt>Note</dt>
-	<dd><%= f.text_area :note %></dd>
-
-	<dt>Hat Daten</dt>
-	<dd><%= f.check_box :has_data %></dd>
-
-	<dt>Status</dt>
-	<dd><%= f.text_field :state %></dd>
-</dl>
-<%= f.submit %>
-<dl class="dl-horizontal">
-	<% @request_mapper.each do | i, n | %>
-	<dt><%= n %></dt>
-	<dd><%= f.text_field i%></dd>
+	<script type="text/javascript">
+		$(document).ready(function($) {
+			$('#tabs').tab();
+		});
+	</script>
 
 	<% end %>
-</dl>
-<%= f.submit %>
-<% end %>
+</div>
+
+<div>
+	<%= form_for(@request) do |f| %>
+	<% if @request.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+	
+		<ul>
+			<% @request.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+	
+	<%= f.submit %>
+	<dl class="dl-horizontal">
+		<dt>Request Number</dt>
+		<dd><%= @request.request_number %></dd>
+	
+		<dt>Note</dt>
+		<dd><%= f.text_area :note %></dd>
+	
+		<dt>Hat Daten</dt>
+		<dd><%= f.check_box :has_data %></dd>
+	
+		<dt>Status</dt>
+		<dd><%= f.text_field :state %></dd>
+
+		<% @request_mapper.each do | i, n | %>
+		<dt><%= n %></dt>
+		<dd><%= f.text_field i%></dd>
+	
+		<% end %>
+	</dl>
+	<% end %>
+</div>
