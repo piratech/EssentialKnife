@@ -1,4 +1,4 @@
-<div style="float: right; padding-right: 10px;">
+<div style="float: right; width: 50%">
 
 	<% if @request.scan.where(deleted: false).count < 1 then %>
 	<h2>Achtung: Keine Scans vorhanden!</h2>
@@ -17,7 +17,7 @@
 		<% @request.scan.where(deleted: false).each_with_index do | s,i | %>
 
 		<div class="tab-pane <%= "active" if i == 0 %>" id="sc<%= i%>">
-			<a href="/Files/<%= s.file%>"> <img src="/Files/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 200"/> </a> <br />
+			<a href="/Files/<%= s.file%>"> <img src="/Files/thumbnail/<%= s.file.split('.').first%>.png" alt="Scan" style="width: 100%"/> </a> <br />
 			<a href="<%= url_for s %>"> Details </a>
 		</div>
 		<% end %>
@@ -60,4 +60,15 @@
 
 	<%= link_to 'Edit', edit_request_path(@request) %> |
 	<%= link_to 'Back', requests_path %>
+	
+	<table class="table table-hover" style="width: 50%;">
+		<% @request_mapper.each do | i, n | %>
+		<tr>
+			<th><%= n %></th>
+			<td><%= @request.attributes[i.to_s]%></td>
+		</tr>
+		<% end %>
+	</table>
+</div>
+<div>
 </div>

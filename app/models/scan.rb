@@ -83,7 +83,7 @@ class Scan < ActiveRecord::Base
 
     FileUtils.copy(file, "public/Files/"+(1000000+scan.id).to_s+'.'+file.split('.').last)
     scan.file= (1000000+scan.id).to_s+'.'+file.split('.').last
-    IO.popen("convert -quality 10 -thumbnail 200 public/Files/#{scan.file} public/Files/"+(1000000+scan.id).to_s+'.png')
+    IO.popen("convert -thumbnail 500 public/Files/#{scan.file} public/Files/thumbnail/"+(1000000+scan.id).to_s+'.png')
     scan.save
     return scan
 

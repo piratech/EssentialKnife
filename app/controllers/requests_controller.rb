@@ -52,6 +52,31 @@ class RequestsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_request
     @request = Request.find(params[:id])
+    @request_mapper = {
+      vorname: "Vorname",
+      name: "Nachname",
+      strasse: "Strasse",
+      plz: "PLZ",
+      ort: "Ort",
+      email: "Email",
+      newsletter: "Newsletter",
+      b1: "Festnetz1",
+      b2: "Festnetz2",
+      b3: "Handy1",
+      b4: "Handy2",
+      b5: "Email1",
+      b6: "Email2",
+      b7: "Internet1",
+      b8: "Internet2",
+      b9: "Voip1",
+      b10: "Voip2",
+      vberuf: "Vertrauensberuf",
+      vname: "Vertrauensberuf Freitext",
+      date: "Datum",
+      version: "Version",
+      complete: "Complete"
+    }
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
