@@ -70,5 +70,9 @@
 		<% end %>
 	</table>
 </div>
-<div>
-</div>
+<script> 
+	handle_qr_scan("<%= url_for @request %>");
+	<% if !@request.has_data then %>
+		handle_no_qr();
+	<% end %>
+</script>

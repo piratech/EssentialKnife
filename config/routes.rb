@@ -2,6 +2,7 @@ EssentialKnife::Application.routes.draw do
   root 'requests#index'
   post "xerox" => "scans#xerox"
 
+  post "/requests/:id" => "requests#qr"
   resources :requests
 
   post "/scans/:id" => "scans#ean"

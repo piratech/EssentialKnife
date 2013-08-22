@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_request, only: [:show, :edit, :update, :destroy, :qr]
   # GET /requests
   # GET /requests.json
   def index
@@ -17,6 +17,20 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
+  end
+
+  def qr
+    begin
+      data= JSON.parse(params[:qr]).to_hash
+      if @request.read_data data then
+        @request.save
+        render text: "OK"
+      else
+        render text: "Der Code wurde abgelent defekt!"
+      end
+    #rescue Exception => e
+    #  render text: "Der Code hat ein Fehler '#{e.message}' verursacht"
+    end
   end
 
   # GET /requests/1/edit
