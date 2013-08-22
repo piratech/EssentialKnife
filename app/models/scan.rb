@@ -3,7 +3,7 @@ class Scan < ActiveRecord::Base
   belongs_to :request
   def update_request_number code
     return false if !EAN8.valid? code
-    self.request= Request.find_or_create_by(request_number: code)
+    self.request= Request.find_or_create_by(id: code[0..6])
     self.request_number= code
     if self.data then
       if !request.has_data then

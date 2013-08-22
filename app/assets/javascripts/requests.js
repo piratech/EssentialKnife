@@ -1,18 +1,20 @@
 function handle_qr_scan(url) {
-	$("#input").show().attr("placeholder","QR-Code");
+	$("#input").show().attr("placeholder", "QR-Code");
 	$("#input_form").submit(function() {
 		$.post(url, {
 			qr : $("#input").val()
 		}).done(function(data) {
-			if (data == "OK"){
+			if (data == "OK") {
 				location.reload();
-			}else{
+			} else {
 				alert(data);
 			}
+		}).fail(function() {
+			alert("error");
 		});
 	});
 }
 
-function handle_no_qr (){
+function handle_no_qr() {
 	$("#input").focus();
 }

@@ -28,8 +28,8 @@ class RequestsController < ApplicationController
       else
         render text: "Der Code wurde abgelent defekt!"
       end
-    #rescue Exception => e
-    #  render text: "Der Code hat ein Fehler '#{e.message}' verursacht"
+    rescue Exception => e
+      render text: "Der Code hat den Fehler '#{e.message}' verursacht"
     end
   end
 
