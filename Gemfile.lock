@@ -66,6 +66,7 @@ GEM
     mime-types (1.24)
     minitest (4.7.5)
     multi_json (1.7.9)
+    mysql2 (0.3.13)
     passenger (4.0.13)
       daemon_controller (>= 1.1.0)
       rack
@@ -136,6 +137,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   less-rails-bootstrap
+  mysql2
   passenger
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
