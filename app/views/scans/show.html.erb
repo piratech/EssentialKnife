@@ -9,7 +9,7 @@
 	<p>
 		<% if @scan.request then %>
 		<strong>Request</strong>
-		<%= link_to @scan.request_number, @scan.request, class: "btn" %>
+		<%= link_to @scan.request.ean, @scan.request, class: "btn" %>
 		<% else %>
 		<h2>Fehler</h2>
 		Der zugehörige Vorrgang konnte nicht gefunden werden. Ggf. ist der Tracking-Aufkleber vergessen worden oder ist nicht erkannt worden.

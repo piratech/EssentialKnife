@@ -26,5 +26,9 @@ class Request < ActiveRecord::Base
 
     self.has_data = true
   end
+  
+  def ean
+    return EAN8.complete((self.id+10000000).to_s[1..7])
+  end
 
 end

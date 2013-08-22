@@ -13,7 +13,7 @@
 
   <div class="field">
     request_id<br>
-    <%=  @scan.request_id %>
+    <%= @scan.request.ean if @scan.request %>
   </div>
   <div class="field">
     <%= f.label :file %><br>

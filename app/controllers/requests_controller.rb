@@ -5,12 +5,12 @@ class RequestsController < ApplicationController
   def index
     if params[:state] then
       if params[:state] != '' then
-        @requests = Request.where(state: params[:state]).order :request_number
+        @requests = Request.where(state: params[:state]).order :id
       else
-        @requests = Request.all.order :request_number
+        @requests = Request.all.order :id
       end
     else
-      @requests = Request.all.order :request_number
+      @requests = Request.all.order :id
     end
   end
 

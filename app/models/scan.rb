@@ -60,7 +60,7 @@ class Scan < ActiveRecord::Base
       end
 
       if request_number then
-        request= Request.find_or_create_by(request_number: request_number)
+        request= Request.find_or_create_by(id: request_number[0..6].to_i)
 
         if !request.has_data then
         request.read_data data

@@ -26,7 +26,7 @@
   <tbody>
     <% @requests.each do |request| %>
       <tr onclick="location='<%= url_for request %>'">
-        <td><%= request.request_number %></td>
+        <td><%= request.ean %></td>
         <td><%= request.note %></td>
         <td><%= request.has_data %></td>
         <td><%= request.state %></td>

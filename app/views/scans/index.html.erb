@@ -27,7 +27,7 @@
 	<tbody>
 		<% @scans.each do |scan| %>
 		<tr onclick="location='<%= url_for scan%>'">
-			<td><%= link_to scan.request_number, scan.request if !scan.request_number.nil? %></td>
+			<td><%= link_to scan.request.ean, scan.request if !scan.request.nil? %></td>
 			<td><%= scan.note %></td>
 			<td>
 				<%= "DATA" if !scan.data.nil?%>
