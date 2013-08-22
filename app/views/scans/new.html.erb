@@ -1,11 +1,17 @@
-<h1>Upload scan</h1>
-<blockquote>
-	<p>
-		Der Scanner kann auch direkt auf den Server scanne...
-	</p>
-</blockquote>
+<div id="upload">
+	<h1>Upload scan</h1>
+	<blockquote>
+		<p>
+			Der Scanner kann auch direkt auf den Server scanne...
+		</p>
+	</blockquote>
 
-<%= form_tag({action: :create}, multipart: true) do %>
+	<%= form_tag({action: :create}, multipart: true, onsubmit: "upload_screen();",) do %>
 	<input type="file" name="upload[]" multiple>
 	<input type="submit" value="Upload starten" />
-<% end %>
+	<% end %>
+</div>
+
+<div id="wait" style="display: none; text-align: center; padding-top: 10%">
+	<img src="/load.gif" />
+</div>

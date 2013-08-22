@@ -12,3 +12,8 @@ function handle_no_ean(url) {
 		});
 	});
 }
+
+function upload_screen () {
+	$("#upload").hide();
+	$("#wait").show();
+}
