@@ -62,19 +62,21 @@ class Scan < ActiveRecord::Base
       if request_number then
         request= Request.find_or_create_by(id: request_number[0..6].to_i)
 
-        if !request.has_data then
-        request.read_data data
-        else
-          request.state = 'Problem'
-          request.note  = "Mehere QR-Codes gefunden"
+        if data then
+          if !request.has_data then
+          request.read_data data
+          else
+            request.state = 'Problem'
+            request.note  = "Mehere QR-Codes gefunden"
+          end
+        request.save
         end
-      request.save
       else
         request= nil
       end
 
-    rescue
-      note = "Parsing error!"
+    rescue Exception => e
+      note = "Parsing error! #{e.message}"
     end
 
     request_number = nil if request_number == false
